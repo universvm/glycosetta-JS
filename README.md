@@ -1,6 +1,6 @@
 # \<glycosetta-JS\>
 
-Glycosetta-stone in JS.
+Glycosetta-Stone in JS
 
 ## Install the Polymer-CLI
 
