@@ -38,19 +38,44 @@
         _translate() {
             console.log("H")
             var glycanOx = "A2G2S2"; //TODO: Change the inside with an event listener?
-            var splitCap = glycanOx.split(/(?=[A-Z])/); //Capital split which makes an array
-            var translated = "";
+            var splitCap = glycanOx.split(/(?=[A-Z])/), //Capital split which makes an array
+                translated = "",
+                //first two are part of the core
+                hex = 3,//Hexose
+                hexnac = 2, //Hexnac
+                deHex = 0, //Deoxyhexose
+                neuac = 0; //NeuAC
+
             for (var i = 0; i < splitCap.length; i++) {
                 if (splitCap[i].includes("A") === true) {
-                    splitCap[i] = splitCap[i].replace("A", "");
-                    splitCap[i] = parseInt(splitCap[i]) //Translating into integer
+                    hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
+
+                } else if (splitCap[i].includes("B") === true) {
+                    hexnac += parseInt(splitCap[i].replace("B", "")) //Translating into integer and adding
+
+                } else if (splitCap[i].includes("F") === true) {
+                    deHex += parseInt(splitCap[i].replace("F", "")) //Translating into integer and adding
 
                 } else if (splitCap[i].includes("G") === true) {
-                    splitCap[i] = splitCap[i].replace("G", "");
+                    hex += parseInt(splitCap[i].replace("G", "")) //Translating into integer and adding
 
-                } else {
-                    splitCap[i] = splitCap[i].replace("S", "");
+                } else if (splitCap[i].includes("H") === true) {
+                    if (glycanOx === "Hy") {
+                        translated = "53000000000000";
+                    }
+                } else if (splitCap[i].includes("C") === true) {
+                    if (glycanOx === "Core F") {
+                        translated = "32100000000000";
+                    }
+                } else if (splitCap[i].includes("M") === true) {
+                    if (glycanOx.includes("Man") === true) { //TODO: This does NOT take into account ManX-Y (ranges)
+                        hex += parseInt(splitCap[i].replace("Man", ""))
+                    }
                 }
+
+                //else {
+                //    splitCap[i] = splitCap[i].replace("S", "");
+                //}
             }
             console.log(splitCap)
         }
