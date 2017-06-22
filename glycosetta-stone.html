@@ -1,0 +1,60 @@
+<link rel="import" href="../polymer/polymer-element.html">
+
+<dom-module id="glycosetta-stone">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]!</h2>
+  </template>
+
+  <script>
+    /**
+     * `glycosetta-stone`
+     * 
+     *
+     * @customElement
+     * @polymer
+     * @demo demo/index.html
+     */
+    class GlycosettaStone extends Polymer.Element {
+      static get is() { return 'glycosetta-stone'; }
+      static get properties() {
+        return {
+          prop1: {
+              type: String,
+              value: 'glycosetta-js',
+              observer: '_translate'
+          },
+          inputValue: {
+              reflectToAttribute: true,
+              type: String,
+              observer: '_translate'
+          }
+        };
+      }
+        _translate() {
+            console.log("H")
+            var glycanOx = "A2G2S2"; //TODO: Change the inside with an event listener?
+            var splitCap = glycanOx.split(/(?=[A-Z])/); //Capital split which makes an array
+            var translated = "";
+            for (var i = 0; i < splitCap.length; i++) {
+                if (splitCap[i].includes("A") === true) {
+                    splitCap[i] = splitCap[i].replace("A", "");
+                    splitCap[i] = parseInt(splitCap[i]) //Translating into integer
+
+                } else if (splitCap[i].includes("G") === true) {
+                    splitCap[i] = splitCap[i].replace("G", "");
+
+                } else {
+                    splitCap[i] = splitCap[i].replace("S", "");
+                }
+            }
+            console.log(splitCap)
+        }
+    }
+    window.customElements.define(GlycosettaStone.is, GlycosettaStone);
+  </script>
+</dom-module>

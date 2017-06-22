@@ -1,7 +1,6 @@
 {
-  "name": "glycosetta-JS",
-  "description": "Glycosetta-Stone in JS",
-  "main": "glycosetta-JS.html",
+  "name": "glycosetta-stone",
+  "main": "glycosetta-stone.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0"
   },
