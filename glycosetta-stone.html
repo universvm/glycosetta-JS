@@ -37,19 +37,29 @@
       }
         _translate() {
             console.log("H")
-            var glycanOx = "A2G2S2"; //TODO: Change the inside with an event listener?
-            var splitCap = glycanOx.split(/(?=[A-Z])/), //Capital split which makes an array
+            var glycanOx = "A2G2S2 (34%)", //TODO: Change the inside with an event listener?
                 translated = "",
+                translated2 = "",
                 //first two are part of the core
                 hex = 3,//Hexose
                 hexnac = 2, //Hexnac
                 deHex = 0, //Deoxyhexose
                 neuac = 0; //NeuAC
 
-            for (var i = 0; i < splitCap.length; i++) {
-                if (splitCap[i].includes("A") === true) {
-                    hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
+            // if else to retrieve percentages:
+            if (glycanOx.includes("(") === true) { //if it contains a percentage
+                var splitCap = glycanOx.split(/(?=[A-Z ])/); //Split should occur by capital letter and space
+            } else {
+                var splitCap = glycanOx.split(/(?=[A-Z])/); //else no percentage available so splitting only occurs by Capitals
+            }
 
+            for (var i = 0; i < splitCap.length; i++) {
+                if (glycanOx.includes("(") === true) { //if it contains a percentage
+                    console.log("it works.") //Translating into integer and adding
+
+                } else if (splitCap[i].includes("A") === true) {
+                    hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
+                    // add conditions for "-"
                 } else if (splitCap[i].includes("B") === true) {
                     hexnac += parseInt(splitCap[i].replace("B", "")) //Translating into integer and adding
 
@@ -69,6 +79,13 @@
                     }
                 } else if (splitCap[i].includes("M") === true) {
                     if (glycanOx.includes("Man") === true) { //TODO: This does NOT take into account ManX-Y (ranges)
+                        if (glycanOx.includes("-") === true) { //if it is a range
+                            var range = glycanOx.replace("Man", "");
+                            var range = range.split("-");
+                            // TODO: what do we do with ranges?
+                        } else { //No range = party
+                            
+                        }
                         hex += parseInt(splitCap[i].replace("Man", ""))
                     }
                 }
