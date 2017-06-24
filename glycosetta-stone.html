@@ -36,7 +36,6 @@
         };
       }
         _translate() {
-            console.log("H")
             var glycanOx = "A2G2S2 (34%)", //TODO: Change the inside with an event listener?
                 translated = "",
                 translated2 = "",
@@ -55,8 +54,6 @@
 
             for (var i = 0; i < splitCap.length; i++) {
                 if (glycanOx.includes("(") === true) { //if it contains a percentage
-                    console.log("it works.") //Translating into integer and adding
-
                 } else if (splitCap[i].includes("A") === true) {
                     hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
                     // add conditions for "-"
@@ -68,6 +65,9 @@
 
                 } else if (splitCap[i].includes("G") === true) {
                     hex += parseInt(splitCap[i].replace("G", "")) //Translating into integer and adding
+
+                } else if (splitCap[i].includes("S") === true) {
+                    neuac += parseInt(splitCap[i].replace("S", "")) //Translating into integer and adding
 
                 } else if (splitCap[i].includes("H") === true) {
                     if (glycanOx === "Hy") {
@@ -84,16 +84,29 @@
                             var range = range.split("-");
                             // TODO: what do we do with ranges?
                         } else { //No range = party
-                            
+                            hex += parseInt(glycanOx.replace("Man", "")) - 3; //removing 3 as they already in the core
                         }
-                        hex += parseInt(splitCap[i].replace("Man", ""))
+                    } else { //else it's just M
+                        if (glycanOx.includes("-") === true) { //if it is a range
+                            var range = glycanOx.replace("M", "");
+                            var range = range.split("-");
+                            // TODO: what do we do with ranges?
+                        } else { //No range = party
+                            hex += parseInt(glycanOx.replace("M", "")) - 3; //removing 3 as they already in the core
+                        }
                     }
                 }
+
 
                 //else {
                 //    splitCap[i] = splitCap[i].replace("S", "");
                 //}
             }
+            // merging into translated
+            //TODO: Above 9 shall we fix it here?
+            translated = '' + hex + hexnac + deHex + neuac + "0000000000";
+            console.log(translated)
+
             console.log(splitCap)
         }
     }
