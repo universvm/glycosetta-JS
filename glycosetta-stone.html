@@ -53,8 +53,7 @@
             }
 
             for (var i = 0; i < splitCap.length; i++) {
-                if (glycanOx.includes("(") === true) { //if it contains a percentage
-                } else if (splitCap[i].includes("A") === true) {
+                if (splitCap[i].includes("A") === true) {
                     hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
                     // add conditions for "-"
                 } else if (splitCap[i].includes("B") === true) {
@@ -105,8 +104,8 @@
             // merging into translated
             //TODO: Above 9 shall we fix it here?
             translated = '' + hex + hexnac + deHex + neuac + "0000000000";
-            console.log(translated)
-
+            console.log(translated);
+            console.log(hex,hexnac);
             console.log(splitCap)
         }
     }
