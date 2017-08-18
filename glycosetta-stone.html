@@ -13,7 +13,7 @@
   <script>
     /**
      * `glycosetta-stone`
-     * 
+     *
      *
      * @customElement
      * @polymer
@@ -53,6 +53,10 @@
             }
 
             for (var i = 0; i < splitCap.length; i++) {
+                var index = splitCap[i].indexOf('[');
+                if(index != -1){
+                  splitCap[i]=splitCap[i].slice(0,index);
+                };
                 if (splitCap[i].includes("A") === true) {
                     hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
                     // add conditions for "-"
@@ -60,7 +64,11 @@
                     hexnac += parseInt(splitCap[i].replace("B", "")) //Translating into integer and adding
 
                 } else if (splitCap[i].includes("F") === true) {
-                    deHex += parseInt(splitCap[i].replace("F", "")) //Translating into integer and adding
+                    var howmany = splitCap[i].replace("F", "");
+                    if(howmany==''){
+                      howmany = '1';
+                    };
+                    deHex += parseInt(howmany) //Translating into integer and adding
 
                 } else if (splitCap[i].includes("G") === true) {
                     hex += parseInt(splitCap[i].replace("G", "")) //Translating into integer and adding
