@@ -41,6 +41,7 @@
                 //first two are part of the core
             // if else to retrieve percentages:
             for (var el in this.inputValue){
+              console.log(this.inputValue);
               var hex = 3;//Hexose
               var hexnac = 2; //Hexnac
               var deHex = 0; //Deoxyhexose
@@ -52,30 +53,31 @@
               } else {
                   var splitCap = e.split(/(?=[A-Z])/); //else no percentage available so splitting only occurs by Capitals
               }
-
+              console.log(e);
               for (var i = 0; i < splitCap.length; i++) {
                   var index = splitCap[i].indexOf('[');
                   if(index != -1){
                     splitCap[i]=splitCap[i].slice(0,index);
                   };
                   if (splitCap[i].includes("A") === true) {
-                      hexnac += parseInt(splitCap[i].replace("A", "")) //Translating into integer and adding
+                      hexnac += howMany(splitCap[i], "A"); //Translating into integer and adding
+                      console.log(hexnac);
                       // add conditions for "-"
                   } else if (splitCap[i].includes("B") === true) {
-                      hexnac += parseInt(splitCap[i].replace("B", "")) //Translating into integer and adding
+                      hexnac += howMany(splitCap[i], "B"); //Translating into integer and adding
 
                   } else if (splitCap[i].includes("F") === true) {
-                      var howmany = splitCap[i].replace("F", "");
-                      if(howmany==''){
-                        howmany = '1';
-                      };
-                      deHex += parseInt(howmany) //Translating into integer and adding
+                      // var howmany = splitCap[i].replace("F", "");
+                      // if(howmany==''){
+                      //   howmany = '1';
+                      // };
+                      deHex += howMany(splitCap[i], "F"); //Translating into integer and adding
 
                   } else if (splitCap[i].includes("G") === true) {
-                      hex += parseInt(splitCap[i].replace("G", "")) //Translating into integer and adding
+                      hex += howMany(splitCap[i], "G"); //Translating into integer and adding
 
                   } else if (splitCap[i].includes("S") === true) {
-                      neuac += parseInt(splitCap[i].replace("S", "")) //Translating into integer and adding
+                      neuac += howMany(splitCap[i], "S"); //Translating into integer and adding
 
                   } else if (splitCap[i].includes("H") === true) {
                       if (e === "Hy") {
@@ -100,7 +102,7 @@
                               var range = range.split("-");
                               // TODO: what do we do with ranges?
                           } else { //No range = party
-                              hex += parseInt(e.replace("M", "")) - 3; //removing 3 as they already in the core
+                              hex += howMany(splitCap[i], "M") - 3; //removing 3 as they already in the core
                           }
                           console.log(hex);
                       }
@@ -116,6 +118,13 @@
             // merging into translated
             //TODO: Above 9 shall we fix it here?
             console.log(translated2);
+        }
+        howMany(typeMono, acronym){
+          var howmany = parseInt(typeMono.replace(acronym, ""));
+          if(howmany==''){
+            howmany = '1';
+          };
+          return howmany
         }
     }
     window.customElements.define(GlycosettaStone.is, GlycosettaStone);
